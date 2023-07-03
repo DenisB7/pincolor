@@ -28,7 +28,7 @@ div.row {
     gap: 50px;
 }
 
-div.circle {
+button.circle {
     border: solid #808080;
     border-radius: 50%;
     width: 50px;
