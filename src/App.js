@@ -1,26 +1,28 @@
 
 
-function Circle() {
-
+function Circle(onCircleClick) {
+  return (
+    <button className="circle" onClick={onCircleClick} />
+  );
 }
 
 function Board() {
   return (
     <div className="pin">
       <div className="row">
-        <button className="circle"></button>
-        <button className="circle"></button>
-        <button className="circle"></button>
+        <Circle />
+        <Circle />
+        <Circle />
       </div>
       <div className="row">
-        <button className="circle"></button>
-        <button className="circle"></button>
-        <button className="circle"></button>
+        <Circle />
+        <Circle />
+        <Circle />
       </div>
       <div className="row">
-        <button className="circle"></button>
-        <button className="circle"></button>
-        <button className="circle"></button>
+        <Circle />
+        <Circle />
+        <Circle />
       </div>
     </div>
   );
