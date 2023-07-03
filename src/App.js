@@ -1,5 +1,3 @@
-import logo from './logo.svg';
-import './App.css';
 
 
 function Circle() {
@@ -7,30 +5,36 @@ function Circle() {
 }
 
 function Board() {
-
+  return (
+    <div className="pin">
+      <div className="row">
+        <button className="circle"></button>
+        <button className="circle"></button>
+        <button className="circle"></button>
+      </div>
+      <div className="row">
+        <button className="circle"></button>
+        <button className="circle"></button>
+        <button className="circle"></button>
+      </div>
+      <div className="row">
+        <button className="circle"></button>
+        <button className="circle"></button>
+        <button className="circle"></button>
+      </div>
+    </div>
+  );
 }
 
 export default function Pin() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="pin-block">
+      <h1>PIN Color</h1>
+      <Board />
     </div>
   );
 }
 
 function checkPin() {
-  
+
 }
