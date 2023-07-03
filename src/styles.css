@@ -1,0 +1,36 @@
+* {
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+div.pin-block {
+    width: 300px;
+    height: 300px;
+    max-width: 100%;
+    max-height: 100%;
+    border: solid #808080;
+    border-radius: 10px;
+}
+
+h1 {
+    text-align: center;
+}
+
+div.pin {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    gap: 30px;
+}
+
+div.row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+}
+
+div.circle {
+    border: solid #808080;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
