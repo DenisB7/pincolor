@@ -3,7 +3,16 @@
     margin: 0 auto;
 }
 
+div.main-block {
+    width: 400px;
+    height: 400px;
+    max-width: 100%;
+    max-height: 100%;
+}
+
 div.pin-block {
+    display: grid;
+    align-items: center;
     width: 300px;
     height: 300px;
     max-width: 100%;
@@ -16,16 +25,11 @@ h1 {
     text-align: center;
 }
 
-div.pin {
-    display: grid;
-    grid-template-rows: repeat(3, 1fr);
-    gap: 30px;
-}
-
 div.row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 50px;
+    grid-gap: 30%;
+    justify-content: center;
 }
 
 button.circle {

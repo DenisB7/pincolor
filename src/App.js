@@ -41,7 +41,7 @@ function Board({ history, onUserClick }) {
   });
 
   return (
-    <div className="pin">
+    <div className="pin-block">
       {board}
     </div>
   );
@@ -56,7 +56,7 @@ export default function Pin() {
   };
 
   return (
-    <div className="pin-block">
+    <div className="main-block">
       <h1>PIN Color</h1>
       <Board history={history} onUserClick={handleUserClick}/>
     </div>
