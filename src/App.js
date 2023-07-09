@@ -13,7 +13,7 @@ function Circle({ className, onCircleClick }) {
   );
 }
 
-function Board({ history, currentClick }) {
+function Board({ history, onUserClick }) {
   // function handleClick(index) {
   //   if (history[index] || calculateWinner(history)[0]) {
   //     return;
@@ -26,17 +26,21 @@ function Board({ history, currentClick }) {
   //   }
   //   onPlay(nextSquares);
   // }
-  function handleClick(index, currentClick) {
-    return;
+  function handleClick(circle) {
+    //history[circle] = "green";
+    let newHistory = history.slice();
+    newHistory[circle] = "green"
+    // onUserClick(circle, history);
+    onUserClick(circle, newHistory);
   }
 
   let row = 0;
   let circlesBoard = [];
   let board = [];
-  history.forEach((circle, index) => {
+  history.forEach((color, index) => {
     if (row === 3) {
       board.push(
-        <div className="row">
+        <div key={index} className="row">
           {circlesBoard.map(circle => circle)}
         </div>
       )
@@ -44,12 +48,7 @@ function Board({ history, currentClick }) {
       circlesBoard.length = 0;
     }
     //circlesBoard.push(<Circle key={index} value={circle[index]} onCircleClick={() => handleClick(index)} />)
-    let className = "circle"
-    if (circle === null) {
-      className += " white";
-    } else {
-      className += ` ${circle}`;
-    }
+    let className = `circle ${color}`
     //circlesBoard.push(<Circle key={index} className={className} onCircleClick={() => handleClick(index, currentClick)} />)
     circlesBoard.push(<Circle key={index} className={className} onCircleClick={() => handleClick(index)} />)
     //circlesBoard.push(<Circle key={index} className={className}/>)
@@ -64,13 +63,20 @@ function Board({ history, currentClick }) {
 }
 
 export default function Pin() {
-  const [history, setHistory] = useState(Array(10).fill(null));
-  const [currentClick, setCurrentClick] = useState("green");
+  const [history, setHistory] = useState(Array(10).fill("white"));
+  //const [currentClick, setCurrentClick] = useState("green");
+
+  function handleUserClick(circle, updatedHistory) {
+    // const nextHistory = [...history.slice(0, circle + 1), updatedHistory];
+    // setHistory(nextHistory);
+    setHistory(updatedHistory);
+    //setCurrentClick(nextHistory.length - 1);
+  }
 
   return (
     <div className="pin-block">
       <h1>PIN Color</h1>
-      <Board history={history}/>
+      <Board history={history} onUserClick={handleUserClick}/>
     </div>
   );
 }
