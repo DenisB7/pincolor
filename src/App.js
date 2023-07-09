@@ -1,19 +1,19 @@
 import { useState } from "react";
 
 
-function Circle({ className, onCircleClick }) {
+function Circle({ className, style, onCircleClick }) {
   return (
-    <button className={className} onClick={onCircleClick} />
+    <button className={className} style={style} onClick={onCircleClick} />
   );
 }
 
 
 function Board({ history, onUserClick }) {
   const handleColors = {
-    "white": "green",
-    "green": "orange",
-    "orange": "red",
-    "red": "white",
+    "#FFFFFF": "#008000",
+    "#008000": "#ffa500",
+    "#ffa500": "#ff0000",
+    "#ff0000": "#FFFFFF",
   }
 
   function handleUserClick(circle) {
@@ -35,8 +35,8 @@ function Board({ history, onUserClick }) {
       row = 0;
       circlesBoard.length = 0;
     }
-    let className = `circle ${color}`;
-    circlesBoard.push(<Circle key={index} className={className} onCircleClick={() => handleUserClick(index)} />)
+    let style = {backgroundColor: color};
+    circlesBoard.push(<Circle key={index} className="circle" style={style} onCircleClick={() => handleUserClick(index)} />)
     row++
   });
 
@@ -49,7 +49,7 @@ function Board({ history, onUserClick }) {
 
 
 export default function Pin() {
-  const [history, setHistory] = useState(Array(10).fill("white"));
+  const [history, setHistory] = useState(Array(10).fill("#FFFFFF"));
 
   function handleUserClick(circle, updatedHistory) {
     setHistory(updatedHistory);
