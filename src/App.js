@@ -1,36 +1,17 @@
 import { useState } from "react";
 
-//function Circle({ value, onCircleClick }) {
+
 function Circle({ className, onCircleClick }) {
-  // let className = "circle"
-  // if (value === null) {
-  //   className += " white";
-  // } else {
-  //   className += ` ${value}`;
-  // }
   return (
     <button className={className} onClick={onCircleClick} />
   );
 }
 
+
 function Board({ history, onUserClick }) {
-  // function handleClick(index) {
-  //   if (history[index] || calculateWinner(history)[0]) {
-  //     return;
-  //   }
-  //   const nextSquares = history.slice();
-  //   if (xIsNext) {
-  //     nextSquares[index] = "X";
-  //   } else {
-  //     nextSquares[index] = "O";
-  //   }
-  //   onPlay(nextSquares);
-  // }
   function handleUserClick(circle) {
-    //history[circle] = "green";
     let updatedHistory = history.slice();
-    updatedHistory[circle] = "green"
-    // onUserClick(circle, history);
+    updatedHistory[circle] = "green";
     onUserClick(circle, updatedHistory);
   }
 
@@ -47,11 +28,8 @@ function Board({ history, onUserClick }) {
       row = 0;
       circlesBoard.length = 0;
     }
-    //circlesBoard.push(<Circle key={index} value={circle[index]} onCircleClick={() => handleClick(index)} />)
-    let className = `circle ${color}`
-    //circlesBoard.push(<Circle key={index} className={className} onCircleClick={() => handleClick(index, currentClick)} />)
+    let className = `circle ${color}`;
     circlesBoard.push(<Circle key={index} className={className} onCircleClick={() => handleUserClick(index)} />)
-    //circlesBoard.push(<Circle key={index} className={className}/>)
     row++
   })
 
@@ -62,15 +40,12 @@ function Board({ history, onUserClick }) {
   );
 }
 
+
 export default function Pin() {
   const [history, setHistory] = useState(Array(10).fill("white"));
-  //const [currentClick, setCurrentClick] = useState("green");
 
   function handleUserClick(circle, updatedHistory) {
-    // const nextHistory = [...history.slice(0, circle + 1), updatedHistory];
-    // setHistory(nextHistory);
     setHistory(updatedHistory);
-    //setCurrentClick(nextHistory.length - 1);
   }
 
   return (
@@ -80,7 +55,3 @@ export default function Pin() {
     </div>
   );
 }
-
-// function checkPin() {
-
-// }
