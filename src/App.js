@@ -14,12 +14,19 @@ function Board({ history, onUserClick }) {
     "#008000": "#ffa500",
     "#ffa500": "#ff0000",
     "#ff0000": "#FFFFFF",
-  }
+  };
 
   function handleUserClick(circle) {
-    let updatedHistory = history.slice();
-    updatedHistory[circle] = handleColors[history[circle]]
-    onUserClick(circle, updatedHistory);
+    let checkNumberOfEnteredColors = history.filter(color => color !== "#FFFFFF");
+    let userIsChangingTheSameCircle = history.filter((color, index) => index === circle && color !== "#FFFFFF");
+    if (checkNumberOfEnteredColors.length !== 4 || userIsChangingTheSameCircle.length === 1) {
+      let updatedHistory = history.slice();
+      updatedHistory[circle] = handleColors[history[circle]];
+      onUserClick(circle, updatedHistory);
+      document.getElementById("text-for-user").textContent = "Click on circles and choose 4 colors";
+    } else {
+      document.getElementById("text-for-user").textContent = "You are permitted to choose only 4!";
+    }
   };
 
   let row = 0;
@@ -57,7 +64,7 @@ export default function Pin() {
 
   return (
     <div className="main-block">
-      <h1>PINColor</h1>
+      <h3 id="text-for-user">Click on circles and choose 4 colors</h3>
       <Board history={history} onUserClick={handleUserClick}/>
     </div>
   );
