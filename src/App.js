@@ -26,7 +26,7 @@ function Board({ history, onUserClick }) {
   //   }
   //   onPlay(nextSquares);
   // }
-  function handleClick(circle) {
+  function handleUserClick(circle) {
     //history[circle] = "green";
     let newHistory = history.slice();
     newHistory[circle] = "green"
@@ -50,7 +50,7 @@ function Board({ history, onUserClick }) {
     //circlesBoard.push(<Circle key={index} value={circle[index]} onCircleClick={() => handleClick(index)} />)
     let className = `circle ${color}`
     //circlesBoard.push(<Circle key={index} className={className} onCircleClick={() => handleClick(index, currentClick)} />)
-    circlesBoard.push(<Circle key={index} className={className} onCircleClick={() => handleClick(index)} />)
+    circlesBoard.push(<Circle key={index} className={className} onCircleClick={() => handleUserClick(index)} />)
     //circlesBoard.push(<Circle key={index} className={className}/>)
     row++
   })
