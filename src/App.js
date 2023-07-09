@@ -28,10 +28,10 @@ function Board({ history, onUserClick }) {
   // }
   function handleUserClick(circle) {
     //history[circle] = "green";
-    let newHistory = history.slice();
-    newHistory[circle] = "green"
+    let updatedHistory = history.slice();
+    updatedHistory[circle] = "green"
     // onUserClick(circle, history);
-    onUserClick(circle, newHistory);
+    onUserClick(circle, updatedHistory);
   }
 
   let row = 0;
