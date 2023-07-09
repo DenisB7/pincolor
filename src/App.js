@@ -9,11 +9,18 @@ function Circle({ className, onCircleClick }) {
 
 
 function Board({ history, onUserClick }) {
+  const handleColors = {
+    "white": "green",
+    "green": "orange",
+    "orange": "red",
+    "red": "white",
+  }
+
   function handleUserClick(circle) {
     let updatedHistory = history.slice();
-    updatedHistory[circle] = "green";
+    updatedHistory[circle] = handleColors[history[circle]]
     onUserClick(circle, updatedHistory);
-  }
+  };
 
   let row = 0;
   let circlesBoard = [];
@@ -31,7 +38,7 @@ function Board({ history, onUserClick }) {
     let className = `circle ${color}`;
     circlesBoard.push(<Circle key={index} className={className} onCircleClick={() => handleUserClick(index)} />)
     row++
-  })
+  });
 
   return (
     <div className="pin">
@@ -46,7 +53,7 @@ export default function Pin() {
 
   function handleUserClick(circle, updatedHistory) {
     setHistory(updatedHistory);
-  }
+  };
 
   return (
     <div className="pin-block">

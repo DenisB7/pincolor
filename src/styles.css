@@ -42,3 +42,11 @@ button.white {
 button.green {
     background-color: #008000;
 }
+
+button.orange {
+    background-color: #ffa500;
+}
+
+button.red {
+    background-color: #ff0000;
+}
