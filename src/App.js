@@ -57,7 +57,7 @@ export default function Pin() {
 
   return (
     <div className="main-block">
-      <h1>PIN Color</h1>
+      <h1>PINColor</h1>
       <Board history={history} onUserClick={handleUserClick}/>
     </div>
   );

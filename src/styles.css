@@ -3,6 +3,22 @@
     margin: 0 auto;
 }
 
+html, body {
+    height: 100%;
+}
+
+body {
+    position: relative;
+}
+
+div#root {
+    position: absolute;
+    top: 50%;
+    max-width: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 div.main-block {
     width: 400px;
     height: 400px;
@@ -30,6 +46,7 @@ div.row {
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 30%;
     justify-content: center;
+    width: 40%;
 }
 
 button.circle {
