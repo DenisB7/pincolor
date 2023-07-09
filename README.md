@@ -1,4 +1,4 @@
-# React project - pincolor
+# React project - PINcolor
 ## Fun project about how else could work PIN code
 
 ### Features:
