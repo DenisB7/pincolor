@@ -1,14 +1,14 @@
 import { useState } from "react";
 
 
-function Circle({ className, style, onCircleClick }) {
+function Circle({ className, style, onUserCircleClick }) {
   return (
-    <button className={className} style={style} onClick={onCircleClick} />
+    <button className={className} style={style} onClick={onUserCircleClick} />
   );
 }
 
 
-function Board({ history, onUserClick }) {
+function Board({ history, onUserCircleClick, onUserResetClick, onUserConfirmClick }) {
   const handleColors = {
     "#FFFFFF": "#008000",
     "#008000": "#ffa500",
@@ -16,13 +16,13 @@ function Board({ history, onUserClick }) {
     "#ff0000": "#FFFFFF",
   };
 
-  function handleUserClick(circle) {
+  function handleUserClickOnCircles(circle) {
     let checkNumberOfEnteredColors = history.filter(color => color !== "#FFFFFF");
     let userIsChangingTheSameCircle = history.filter((color, index) => color !== "#FFFFFF" && index === circle);
     if (checkNumberOfEnteredColors.length !== 4 || userIsChangingTheSameCircle.length === 1) {
       let updatedHistory = history.slice();
       updatedHistory[circle] = handleColors[history[circle]];
-      onUserClick(circle, updatedHistory);
+      onUserCircleClick(circle, updatedHistory);
       document.getElementById("text-for-user").textContent = "Choose 4 colors by clicking on circles";
     } else {
       document.getElementById("text-for-user").textContent = "You are permitted to choose only 4!";
@@ -43,7 +43,7 @@ function Board({ history, onUserClick }) {
       circlesBoard.length = 0;
     }
     let style = {backgroundColor: color};
-    circlesBoard.push(<Circle key={index} className="circle" style={style} onCircleClick={() => handleUserClick(index)} />)
+    circlesBoard.push(<Circle key={index} className="circle" style={style} onUserCircleClick={() => handleUserClickOnCircles(index)} />)
     row++
   });
 
@@ -53,8 +53,8 @@ function Board({ history, onUserClick }) {
         {board}
       </div>
       <div className="buttons">
-        <button className="reset">reset</button>
-        <button className="confirm">confirm</button>
+        <button className="reset" onClick={() => onUserResetClick()}>reset</button>
+        <button className="confirm" onClick={() => onUserConfirmClick(history)}>confirm</button>
       </div>
     </>
   );
@@ -64,14 +64,28 @@ function Board({ history, onUserClick }) {
 export default function Pin() {
   const [history, setHistory] = useState(Array(10).fill("#FFFFFF"));
 
-  function handleUserClick(circle, updatedHistory) {
+  function handleUserClickOnCircles(circle, updatedHistory) {
+    setHistory(updatedHistory);
+  };
+
+  function handleUserClickOnReset() {
+    setHistory(Array(10).fill("#FFFFFF"));
+    document.getElementById("text-for-user").textContent = "Choose 4 colors by clicking on circles";
+  };
+
+  function handleUserClickOnConfirm(updatedHistory) {
     setHistory(updatedHistory);
   };
 
   return (
     <div className="main-block">
       <h3 id="text-for-user">Choose 4 colors by clicking on circles</h3>
-      <Board history={history} onUserClick={handleUserClick}/>
+      <Board
+        history={history}
+        onUserCircleClick={handleUserClickOnCircles}
+        onUserResetClick={handleUserClickOnReset}
+        onUserConfirmClick={handleUserClickOnConfirm}
+      />
     </div>
   );
 }
