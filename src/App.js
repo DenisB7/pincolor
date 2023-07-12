@@ -73,7 +73,7 @@ export default function Pin() {
       setSavedPinColor(history);
       setHistory(Array(10).fill("#FFFFFF"));
       document.getElementById("message-to-user").textContent = "Great! Please enter your PINColor code and click CONFIRM button!";
-    } else if (savedPinColor.length > 0) {
+    } else if (savedPinColor.length > 0 && document.getElementById("message-to-user").textContent !== "Congratulations! Correct!") {
       document.getElementById("message-to-user").textContent = "You already SAVEd your pincolor! Try to recall it and click on CONFIRM or RESET everything!";
     }
   };
