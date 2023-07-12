@@ -23,7 +23,7 @@ function Board({ history, onUserCircleClick, onUserResetClick, onUserConfirmClic
       let updatedHistory = history.slice();
       updatedHistory[circle] = handleColors[history[circle]];
       onUserCircleClick(circle, updatedHistory);
-      document.getElementById("message-to-user").textContent = "Choose 4 colors by clicking on circles";
+      document.getElementById("message-to-user").textContent = "Choose 4 colors by clicking on circles, remember it and save!";
     } else {
       document.getElementById("message-to-user").textContent = "You are permitted to choose only 4!";
     }
@@ -53,7 +53,7 @@ function Board({ history, onUserCircleClick, onUserResetClick, onUserConfirmClic
         {board}
       </div>
       <div className="buttons">
-        <button className="reset" onClick={() => onUserResetClick()}>reset</button>
+        <button className="reset" onClick={onUserResetClick}>reset</button>
         <button className="confirm" onClick={() => onUserConfirmClick(history)}>confirm</button>
       </div>
     </>
@@ -64,13 +64,18 @@ function Board({ history, onUserCircleClick, onUserResetClick, onUserConfirmClic
 export default function Pin() {
   const [history, setHistory] = useState(Array(10).fill("#FFFFFF"));
 
+  function handleUserClickOnSave() {
+    setHistory(Array(10).fill("#FFFFFF"));
+    document.getElementById("message-to-user").textContent = "Great! Please enter your PINColor code and click CONFIRM button!";
+  };
+
   function handleUserClickOnCircles(circle, updatedHistory) {
     setHistory(updatedHistory);
   };
 
   function handleUserClickOnReset() {
     setHistory(Array(10).fill("#FFFFFF"));
-    document.getElementById("message-to-user").textContent = "Choose 4 colors by clicking on circles";
+    document.getElementById("message-to-user").textContent = "Choose 4 colors by clicking on circles, remember it and save!";
   };
 
   function handleUserClickOnConfirm(updatedHistory) {
@@ -79,7 +84,10 @@ export default function Pin() {
 
   return (
     <div className="main-block">
-      <h3 id="message-to-user">Choose 4 colors by clicking on circles</h3>
+      <h3 id="message-to-user">Choose 4 colors by clicking on circles, remember it and save!</h3>
+      <div className="button-save">
+        <button className="save" onClick={handleUserClickOnSave}>save</button>
+      </div>
       <Board
         history={history}
         onUserCircleClick={handleUserClickOnCircles}
