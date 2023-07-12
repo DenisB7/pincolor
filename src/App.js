@@ -23,9 +23,9 @@ function Board({ history, onUserCircleClick, onUserResetClick, onUserConfirmClic
       let updatedHistory = history.slice();
       updatedHistory[circle] = handleColors[history[circle]];
       onUserCircleClick(circle, updatedHistory);
-      document.getElementById("text-for-user").textContent = "Choose 4 colors by clicking on circles";
+      document.getElementById("message-to-user").textContent = "Choose 4 colors by clicking on circles";
     } else {
-      document.getElementById("text-for-user").textContent = "You are permitted to choose only 4!";
+      document.getElementById("message-to-user").textContent = "You are permitted to choose only 4!";
     }
   };
 
@@ -70,7 +70,7 @@ export default function Pin() {
 
   function handleUserClickOnReset() {
     setHistory(Array(10).fill("#FFFFFF"));
-    document.getElementById("text-for-user").textContent = "Choose 4 colors by clicking on circles";
+    document.getElementById("message-to-user").textContent = "Choose 4 colors by clicking on circles";
   };
 
   function handleUserClickOnConfirm(updatedHistory) {
@@ -79,7 +79,7 @@ export default function Pin() {
 
   return (
     <div className="main-block">
-      <h3 id="text-for-user">Choose 4 colors by clicking on circles</h3>
+      <h3 id="message-to-user">Choose 4 colors by clicking on circles</h3>
       <Board
         history={history}
         onUserCircleClick={handleUserClickOnCircles}
