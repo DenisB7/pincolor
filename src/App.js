@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 
-function Circle({ className, style, onUserCircleClick }) {
+function CircleButton({ className, style, onUserCircleClick }) {
   return (
     <button className={className} style={style} onClick={onUserCircleClick} />
   );
@@ -45,7 +45,7 @@ function Board({ history, onUserCircleClick, onUserResetClick, onUserConfirmClic
       circlesBoard.length = 0;
     }
     let style = {backgroundColor: color};
-    circlesBoard.push(<Circle key={index} className="circle" style={style} onUserCircleClick={() => handleUserClickOnCircles(index)} />)
+    circlesBoard.push(<CircleButton key={index} className="circle" style={style} onUserCircleClick={() => handleUserClickOnCircles(index)} />)
     row++
   });
 
