@@ -65,16 +65,16 @@ function Board({ history, onUserCircleClick, onUserResetClick, onUserConfirmClic
 
 export default function Pin() {
   const [history, setHistory] = useState(Array(10).fill("#FFFFFF"));
-  const [userPinColor, setUserPinColor] = useState([]);
+  const [savedPinColor, setSavedPinColor] = useState([]);
 
   function handleUserClickOnSave() {
     let chosenColors = history.filter(color => color !== "#FFFFFF");
-    if (chosenColors.length === 4 && userPinColor.length === 0) {
-      setUserPinColor(history);
+    if (chosenColors.length === 4 && savedPinColor.length === 0) {
+      setSavedPinColor(history);
       setHistory(Array(10).fill("#FFFFFF"));
       document.getElementById("message-to-user").textContent = "Great! Please enter your PINColor code and click CONFIRM button!";
-    } else if (userPinColor.length > 0) {
-      document.getElementById("message-to-user").textContent = "You already SAVEd your pincolor! Try to recall it and click on CONFIRM or REST everything!";
+    } else if (savedPinColor.length > 0) {
+      document.getElementById("message-to-user").textContent = "You already SAVEd your pincolor! Try to recall it and click on CONFIRM or RESET everything!";
     }
   };
 
@@ -84,15 +84,15 @@ export default function Pin() {
 
   function handleUserClickOnReset() {
     setHistory(Array(10).fill("#FFFFFF"));
-    setUserPinColor([]);
+    setSavedPinColor([]);
     document.getElementById("message-to-user").textContent = "Choose 4 colors by clicking on circles, remember it and SAVE!";
   };
 
   function handleUserClickOnConfirm(updatedHistory) {
-    let savedColors = userPinColor.filter(color => color !== "#FFFFFF");
+    let savedColors = savedPinColor.filter(color => color !== "#FFFFFF");
     let chosenColors = updatedHistory.filter(color => color !== "#FFFFFF");
     if (chosenColors.length === 4 && savedColors.length === 4) {
-      let colorsAreEqualAndOnTheSamePlaces = updatedHistory.every((color, index) => color === userPinColor[index]);
+      let colorsAreEqualAndOnTheSamePlaces = updatedHistory.every((color, index) => color === savedPinColor[index]);
       if (colorsAreEqualAndOnTheSamePlaces) {
         document.getElementById("message-to-user").textContent = "Congratulations! Correct!";
       } else {
