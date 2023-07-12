@@ -21,7 +21,6 @@ div#root {
 
 div.main-block {
     width: 400px;
-    height: 400px;
     max-width: 100%;
     max-height: 100%;
 }
@@ -54,4 +53,35 @@ button.circle {
     border-radius: 50%;
     width: 50px;
     height: 50px;
+}
+
+div.buttons {
+    width: 300px;
+    height: 100px;
+    max-width: 100%;
+    max-height: 100%;
+    text-align: center;
+}
+
+button.reset {
+    width: 98px;
+    height: 50px;
+    max-width: 100%;
+    max-height: 100%;
+    margin-right: 4px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    background-color: #ff0000;
+}
+
+button.confirm {
+    width: 198px;
+    height: 50px;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    background-color: #00ff00;
 }

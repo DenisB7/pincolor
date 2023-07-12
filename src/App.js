@@ -18,12 +18,12 @@ function Board({ history, onUserClick }) {
 
   function handleUserClick(circle) {
     let checkNumberOfEnteredColors = history.filter(color => color !== "#FFFFFF");
-    let userIsChangingTheSameCircle = history.filter((color, index) => index === circle && color !== "#FFFFFF");
+    let userIsChangingTheSameCircle = history.filter((color, index) => color !== "#FFFFFF" && index === circle);
     if (checkNumberOfEnteredColors.length !== 4 || userIsChangingTheSameCircle.length === 1) {
       let updatedHistory = history.slice();
       updatedHistory[circle] = handleColors[history[circle]];
       onUserClick(circle, updatedHistory);
-      document.getElementById("text-for-user").textContent = "Click on circles and choose 4 colors";
+      document.getElementById("text-for-user").textContent = "Choose 4 colors by clicking on circles";
     } else {
       document.getElementById("text-for-user").textContent = "You are permitted to choose only 4!";
     }
@@ -48,9 +48,15 @@ function Board({ history, onUserClick }) {
   });
 
   return (
-    <div className="pin-block">
-      {board}
-    </div>
+    <>
+      <div className="pin-block">
+        {board}
+      </div>
+      <div className="buttons">
+        <button className="reset">reset</button>
+        <button className="confirm">confirm</button>
+      </div>
+    </>
   );
 }
 
@@ -64,7 +70,7 @@ export default function Pin() {
 
   return (
     <div className="main-block">
-      <h3 id="text-for-user">Click on circles and choose 4 colors</h3>
+      <h3 id="text-for-user">Choose 4 colors by clicking on circles</h3>
       <Board history={history} onUserClick={handleUserClick}/>
     </div>
   );
