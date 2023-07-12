@@ -63,10 +63,15 @@ function Board({ history, onUserCircleClick, onUserResetClick, onUserConfirmClic
 
 export default function Pin() {
   const [history, setHistory] = useState(Array(10).fill("#FFFFFF"));
+  const [userPinColor, setUserPinColor] = useState([]);
 
   function handleUserClickOnSave() {
-    setHistory(Array(10).fill("#FFFFFF"));
-    document.getElementById("message-to-user").textContent = "Great! Please enter your PINColor code and click CONFIRM button!";
+    let chosenColors = history.filter(color => color !== "#FFFFFF");
+    if (chosenColors.length === 4) {
+      setUserPinColor(chosenColors);
+      setHistory(Array(10).fill("#FFFFFF"));
+      document.getElementById("message-to-user").textContent = "Great! Please enter your PINColor code and click CONFIRM button!";
+    }
   };
 
   function handleUserClickOnCircles(circle, updatedHistory) {
@@ -75,10 +80,23 @@ export default function Pin() {
 
   function handleUserClickOnReset() {
     setHistory(Array(10).fill("#FFFFFF"));
+    if (userPinColor.length === 4) {
+      setUserPinColor([]);
+    }
     document.getElementById("message-to-user").textContent = "Choose 4 colors by clicking on circles, remember it and save!";
   };
 
   function handleUserClickOnConfirm(updatedHistory) {
+    let savedColors = userPinColor;
+    let chosenColors = updatedHistory.filter(color => color !== "#FFFFFF");
+    if (savedColors.length === 4 && chosenColors.length === 4) {
+      let colorsAreEqual = chosenColors.every((color, index) => color === savedColors[index]);
+      if (colorsAreEqual) {
+        document.getElementById("message-to-user").textContent = "Congratulations! This is correct answer!";
+      } else {
+        document.getElementById("message-to-user").textContent = "Incorrect answer!";
+      }
+    }
     setHistory(updatedHistory);
   };
 
