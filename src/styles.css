@@ -36,6 +36,10 @@ div.pin-block {
     border-radius: 10px;
 }
 
+h1 {
+    word-break: break-word;
+}
+
 h1, h3 {
     text-align: center;
 }
@@ -84,4 +88,11 @@ button.confirm {
     text-transform: uppercase;
     letter-spacing: 3px;
     background-color: #00ff00;
+}
+
+@media all and (max-width: 227px) {
+    button.circle {
+        width: 33px;
+        height: 33px;
+    }
 }
