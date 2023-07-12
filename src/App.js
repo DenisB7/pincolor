@@ -23,8 +23,10 @@ function Board({ history, onUserCircleClick, onUserResetClick, onUserConfirmClic
       let updatedHistory = history.slice();
       updatedHistory[circle] = handleColors[history[circle]];
       onUserCircleClick(circle, updatedHistory);
-      document.getElementById("message-to-user").textContent = "Choose 4 colors by clicking on circles, remember it and SAVE!";
-    } else {
+      if (document.getElementById("message-to-user").textContent !== "Great! Please enter your PINColor code and click CONFIRM button!") {
+        document.getElementById("message-to-user").textContent = "Choose 4 colors by clicking on circles, remember it and SAVE!";
+      }
+    } else if (document.getElementById("message-to-user").textContent !== "Great! Please enter your PINColor code and click CONFIRM button!") {
       document.getElementById("message-to-user").textContent = "You are permitted to choose only 4!";
     }
   };
@@ -67,10 +69,12 @@ export default function Pin() {
 
   function handleUserClickOnSave() {
     let chosenColors = history.filter(color => color !== "#FFFFFF");
-    if (chosenColors.length === 4) {
+    if (chosenColors.length === 4 && userPinColor.length === 0) {
       setUserPinColor(history);
       setHistory(Array(10).fill("#FFFFFF"));
       document.getElementById("message-to-user").textContent = "Great! Please enter your PINColor code and click CONFIRM button!";
+    } else if (userPinColor.length > 0) {
+      document.getElementById("message-to-user").textContent = "You already SAVEd your pincolor! Try to recall it and click on CONFIRM or REST everything!";
     }
   };
 
@@ -85,8 +89,9 @@ export default function Pin() {
   };
 
   function handleUserClickOnConfirm(updatedHistory) {
+    let savedColors = userPinColor.filter(color => color !== "#FFFFFF");
     let chosenColors = updatedHistory.filter(color => color !== "#FFFFFF");
-    if (chosenColors.length === 4) {
+    if (chosenColors.length === 4 && savedColors.length === 4) {
       let colorsAreEqualAndOnTheSamePlaces = updatedHistory.every((color, index) => color === userPinColor[index]);
       if (colorsAreEqualAndOnTheSamePlaces) {
         document.getElementById("message-to-user").textContent = "Congratulations! Correct!";
@@ -98,7 +103,7 @@ export default function Pin() {
 
   return (
     <div className="main-block">
-      <h3 id="message-to-user">Choose 4 colors by clicking on circles, remember it and save!</h3>
+      <h3 id="message-to-user">Choose 4 colors by clicking on circles, remember it and SAVE!</h3>
       <div className="button-save">
         <button className="save" onClick={handleUserClickOnSave}>save</button>
       </div>
