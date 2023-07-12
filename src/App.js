@@ -23,7 +23,7 @@ function Board({ history, onUserCircleClick, onUserResetClick, onUserConfirmClic
       let updatedHistory = history.slice();
       updatedHistory[circle] = handleColors[history[circle]];
       onUserCircleClick(circle, updatedHistory);
-      document.getElementById("message-to-user").textContent = "Choose 4 colors by clicking on circles, remember it and save!";
+      document.getElementById("message-to-user").textContent = "Choose 4 colors by clicking on circles, remember it and SAVE!";
     } else {
       document.getElementById("message-to-user").textContent = "You are permitted to choose only 4!";
     }
@@ -68,7 +68,7 @@ export default function Pin() {
   function handleUserClickOnSave() {
     let chosenColors = history.filter(color => color !== "#FFFFFF");
     if (chosenColors.length === 4) {
-      setUserPinColor(chosenColors);
+      setUserPinColor(history);
       setHistory(Array(10).fill("#FFFFFF"));
       document.getElementById("message-to-user").textContent = "Great! Please enter your PINColor code and click CONFIRM button!";
     }
@@ -80,24 +80,20 @@ export default function Pin() {
 
   function handleUserClickOnReset() {
     setHistory(Array(10).fill("#FFFFFF"));
-    if (userPinColor.length === 4) {
-      setUserPinColor([]);
-    }
-    document.getElementById("message-to-user").textContent = "Choose 4 colors by clicking on circles, remember it and save!";
+    setUserPinColor([]);
+    document.getElementById("message-to-user").textContent = "Choose 4 colors by clicking on circles, remember it and SAVE!";
   };
 
   function handleUserClickOnConfirm(updatedHistory) {
-    let savedColors = userPinColor;
     let chosenColors = updatedHistory.filter(color => color !== "#FFFFFF");
-    if (savedColors.length === 4 && chosenColors.length === 4) {
-      let colorsAreEqual = chosenColors.every((color, index) => color === savedColors[index]);
-      if (colorsAreEqual) {
-        document.getElementById("message-to-user").textContent = "Congratulations! This is correct answer!";
+    if (chosenColors.length === 4) {
+      let colorsAreEqualAndOnTheSamePlaces = updatedHistory.every((color, index) => color === userPinColor[index]);
+      if (colorsAreEqualAndOnTheSamePlaces) {
+        document.getElementById("message-to-user").textContent = "Congratulations! Correct!";
       } else {
-        document.getElementById("message-to-user").textContent = "Incorrect answer!";
+        document.getElementById("message-to-user").textContent = "Incorrect! Click on RESET and try again!";
       }
     }
-    setHistory(updatedHistory);
   };
 
   return (
