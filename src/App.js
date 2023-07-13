@@ -9,6 +9,21 @@ function CircleButton({ className, style, onUserCircleClick }) {
 
 
 function Board({ history, onUserCircleClick, savedPinColor }) {
+  /*
+    Title: Board with circles and to handle user interaction with circles
+    About the code below:
+    It creates Board with circles which are buttons, when user click on any circle, it change colors.
+    It has limit, user can click only on 4 circles.
+    For example:
+    Each circle has default color - "white".
+    By clicking on circles, circle change colors.
+    User chose 4 colors ["red", "orange", "green", "green"].
+    User can change colors of that circles by clicking on them again.
+    User is trying to click on additional circle, it will not work.
+    However user can return color of one of the circles to default white color, then user will have 3 chosen colors ["red", "orange", "green"]
+    and then click any other circle.
+  */
+
   const handleColors = {
     "#FFFFFF": "#008000",
     "#008000": "#ffa500",
@@ -58,6 +73,18 @@ function Board({ history, onUserCircleClick, savedPinColor }) {
 
 
 export default function Pin() {
+  /*
+    Title: rendering Board and buttons out of the Board
+    About the code below:
+    It renders Board and buttons (RESET, SAVE, CONFIRM) and mainly handle interaction of Board with buttons which are out of the Board
+    For example:
+    - User can click on SAVE button and will save chosen circles and colors
+    - Now user is able to check his memory and click on circles again, once he chose circles and colors user click on CONFIRM button
+    - If he chose it correctly user won, if not, he need to click on RESET button
+    - Anyway, after correct or not correct answer user should click on RESET button
+    - RESET button will reset all colors to default - "white" color
+  */
+
   const [history, setHistory] = useState(Array(10).fill("#FFFFFF"));
   const [savedPinColor, setSavedPinColor] = useState([]);
   const [correctAnswer, setCorrectAnswer] = useState(false);
