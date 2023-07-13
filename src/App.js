@@ -99,7 +99,7 @@ export default function Pin() {
     <div className="main-block">
       <h3 id="message-to-user">Choose 4 colors by clicking on circles, remember it and SAVE!</h3>
       <div className="button-save">
-        <button className="save" onClick={handleUserClickOnSaveButton}>save</button>
+        <SaveButton handleUserClickOnSaveButton={handleUserClickOnSaveButton}/>
       </div>
       <Board
         history={history}
@@ -111,6 +111,11 @@ export default function Pin() {
       </div>
     </div>
   );
+}
+
+
+function SaveButton({ handleUserClickOnSaveButton }) {
+  return <button className="save" onClick={handleUserClickOnSaveButton}>save</button>
 }
 
 
