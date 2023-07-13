@@ -23,7 +23,7 @@ function Board({ history, onUserCircleClick, savedPinColor }) {
       let updatedHistory = history.slice();
       updatedHistory[circle] = handleColors[history[circle]];
       onUserCircleClick(updatedHistory);
-      if (typeof savedPinColor !== "undefined") {
+      if (typeof savedPinColor === "undefined") {
         document.getElementById("message-to-user").textContent = "Choose 4 colors by clicking on circles, remember it and SAVE!";
       }
     } else if (typeof savedPinColor !== "undefined") {
@@ -60,6 +60,7 @@ function Board({ history, onUserCircleClick, savedPinColor }) {
 export default function Pin() {
   const [history, setHistory] = useState(Array(10).fill("#FFFFFF"));
   const [savedPinColor, setSavedPinColor] = useState([]);
+  const [correctAnswer, setCorrectAnswer] = useState(false);
 
   function handleUserClickOnCircle(updatedHistory) {
     setHistory(updatedHistory);
@@ -71,7 +72,7 @@ export default function Pin() {
       setSavedPinColor(history);
       setHistory(Array(10).fill("#FFFFFF"));
       document.getElementById("message-to-user").textContent = "Great! Please enter your PINColor code and click CONFIRM button!";
-    } else if (savedPinColor.length > 0 && document.getElementById("message-to-user").textContent !== "Congratulations! Correct!") {
+    } else if (savedPinColor.length > 0 && correctAnswer === false) {
       document.getElementById("message-to-user").textContent = "You already SAVEd your pincolor! Try to recall it and click on CONFIRM or RESET everything!";
     }
   };
@@ -89,8 +90,10 @@ export default function Pin() {
       let colorsAreEqualAndOnTheSamePlaces = history.every((color, index) => color === savedPinColor[index]);
       if (colorsAreEqualAndOnTheSamePlaces) {
         document.getElementById("message-to-user").textContent = "Congratulations! Correct!";
+        setCorrectAnswer(true);
       } else {
         document.getElementById("message-to-user").textContent = "Incorrect! Click on RESET and try again!";
+        setCorrectAnswer(false);
       }
     }
   };
