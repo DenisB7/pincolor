@@ -8,7 +8,7 @@ function CircleButton({ className, style, onUserCircleClick }) {
 }
 
 
-function Board({ history, onUserCircleClick, savedPinColor }) {
+function Board({ history, onUserCircleClick, savedPinColor, confirmed }) {
   /*
     Title: Board with circles and to handle user interaction with circles
     About the code below:
@@ -31,7 +31,7 @@ function Board({ history, onUserCircleClick, savedPinColor }) {
     "#ff0000": "#FFFFFF",
   };
 
-  function handleUserClickOnCircle(circle, savedPinColor) {
+  function handleUserClickOnCircle(circle, savedPinColor, confirmed) {
     let checkNumberOfEnteredColors = history.filter(color => color !== "#FFFFFF");
     let userIsChangingTheSameCircle = history.filter((color, index) => color !== "#FFFFFF" && index === circle);
     if (checkNumberOfEnteredColors.length !== 4 || userIsChangingTheSameCircle.length === 1) {
@@ -41,7 +41,7 @@ function Board({ history, onUserCircleClick, savedPinColor }) {
       if (typeof savedPinColor === "undefined") {
         document.getElementById("message-to-user").textContent = "Choose 4 colors by clicking on circles, remember it and SAVE!";
       }
-    } else if (typeof savedPinColor !== "undefined") {
+    } else if (typeof savedPinColor !== "undefined" && confirmed === false) {
       document.getElementById("message-to-user").textContent = "You are permitted to choose only 4!";
     }
   };
@@ -60,7 +60,7 @@ function Board({ history, onUserCircleClick, savedPinColor }) {
       circlesBoard.length = 0;
     }
     let style = {backgroundColor: color};
-    circlesBoard.push(<CircleButton key={index} className="circle" style={style} onUserCircleClick={() => handleUserClickOnCircle(index, savedPinColor)} />)
+    circlesBoard.push(<CircleButton key={index} className="circle" style={style} onUserCircleClick={() => handleUserClickOnCircle(index, savedPinColor, confirmed)} />)
     row++
   });
 
@@ -87,7 +87,7 @@ export default function Pin() {
 
   const [history, setHistory] = useState(Array(10).fill("#FFFFFF"));
   const [savedPinColor, setSavedPinColor] = useState([]);
-  const [correctAnswer, setCorrectAnswer] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
 
   function handleUserClickOnCircle(updatedHistory) {
     setHistory(updatedHistory);
@@ -99,7 +99,7 @@ export default function Pin() {
       setSavedPinColor(history);
       setHistory(Array(10).fill("#FFFFFF"));
       document.getElementById("message-to-user").textContent = "Great! Please enter your PINColor code and click CONFIRM button!";
-    } else if (savedPinColor.length > 0 && correctAnswer === false) {
+    } else if (savedPinColor.length > 0 && confirmed === false) {
       document.getElementById("message-to-user").textContent = "You already SAVEd your pincolor! Try to recall it and click on CONFIRM or RESET everything!";
     }
   };
@@ -116,12 +116,11 @@ export default function Pin() {
     if (chosenColors.length === 4 && savedColors.length === 4) {
       let colorsAreEqualAndOnTheSamePlaces = history.every((color, index) => color === savedPinColor[index]);
       if (colorsAreEqualAndOnTheSamePlaces) {
-        document.getElementById("message-to-user").textContent = "Congratulations! Correct!";
-        setCorrectAnswer(true);
+        document.getElementById("message-to-user").textContent = "Congratulations! Correct! Now, you can RESET it!";
       } else {
-        document.getElementById("message-to-user").textContent = "Incorrect! Click on RESET and try again!";
-        setCorrectAnswer(false);
+        document.getElementById("message-to-user").textContent = "Incorrect! Click on RESET and start from the beginning!";
       }
+      setConfirmed(true);
     }
   };
 
@@ -135,6 +134,7 @@ export default function Pin() {
         history={history}
         onUserCircleClick={handleUserClickOnCircle}
         savedPinColor={savedPinColor}
+        confirmed={confirmed}
       />
       <div className="buttons">
         <ResetButton handleUserClickOnResetButton={handleUserClickOnResetButton}/>
