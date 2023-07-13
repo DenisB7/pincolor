@@ -8,7 +8,7 @@ function CircleButton({ className, style, onUserCircleClick }) {
 }
 
 
-function Board({ history, onUserCircleClick }) {
+function Board({ history, onUserCircleClick, savedPinColor }) {
   const handleColors = {
     "#FFFFFF": "#008000",
     "#008000": "#ffa500",
@@ -16,17 +16,17 @@ function Board({ history, onUserCircleClick }) {
     "#ff0000": "#FFFFFF",
   };
 
-  function handleUserClickOnCircle(circle) {
+  function handleUserClickOnCircle(circle, savedPinColor) {
     let checkNumberOfEnteredColors = history.filter(color => color !== "#FFFFFF");
     let userIsChangingTheSameCircle = history.filter((color, index) => color !== "#FFFFFF" && index === circle);
     if (checkNumberOfEnteredColors.length !== 4 || userIsChangingTheSameCircle.length === 1) {
       let updatedHistory = history.slice();
       updatedHistory[circle] = handleColors[history[circle]];
       onUserCircleClick(updatedHistory);
-      if (document.getElementById("message-to-user").textContent !== "Great! Please enter your PINColor code and click CONFIRM button!") {
+      if (typeof savedPinColor !== "undefined") {
         document.getElementById("message-to-user").textContent = "Choose 4 colors by clicking on circles, remember it and SAVE!";
       }
-    } else if (document.getElementById("message-to-user").textContent !== "Great! Please enter your PINColor code and click CONFIRM button!") {
+    } else if (typeof savedPinColor !== "undefined") {
       document.getElementById("message-to-user").textContent = "You are permitted to choose only 4!";
     }
   };
@@ -45,7 +45,7 @@ function Board({ history, onUserCircleClick }) {
       circlesBoard.length = 0;
     }
     let style = {backgroundColor: color};
-    circlesBoard.push(<CircleButton key={index} className="circle" style={style} onUserCircleClick={() => handleUserClickOnCircle(index)} />)
+    circlesBoard.push(<CircleButton key={index} className="circle" style={style} onUserCircleClick={() => handleUserClickOnCircle(index, savedPinColor)} />)
     row++
   });
 
@@ -104,6 +104,7 @@ export default function Pin() {
       <Board
         history={history}
         onUserCircleClick={handleUserClickOnCircle}
+        savedPinColor={savedPinColor}
       />
       <div className="buttons">
         <ResetButton handleUserClickOnResetButton={handleUserClickOnResetButton}/>
