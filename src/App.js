@@ -8,7 +8,7 @@ function CircleButton({ className, style, onUserCircleClick }) {
 }
 
 
-function Board({ history, onUserCircleClick, onUserResetClick, onUserConfirmClick }) {
+function Board({ history, onUserCircleClick }) {
   const handleColors = {
     "#FFFFFF": "#008000",
     "#008000": "#ffa500",
@@ -50,15 +50,9 @@ function Board({ history, onUserCircleClick, onUserResetClick, onUserConfirmClic
   });
 
   return (
-    <>
-      <div className="pin-block">
-        {board}
-      </div>
-      <div className="buttons">
-        <button className="reset" onClick={onUserResetClick}>reset</button>
-        <button className="confirm" onClick={() => onUserConfirmClick(history)}>confirm</button>
-      </div>
-    </>
+    <div className="pin-block">
+      {board}
+    </div>
   );
 }
 
@@ -88,11 +82,11 @@ export default function Pin() {
     document.getElementById("message-to-user").textContent = "Choose 4 colors by clicking on circles, remember it and SAVE!";
   };
 
-  function handleUserClickOnConfirmButton(updatedHistory) {
+  function handleUserClickOnConfirmButton() {
     let savedColors = savedPinColor.filter(color => color !== "#FFFFFF");
-    let chosenColors = updatedHistory.filter(color => color !== "#FFFFFF");
+    let chosenColors = history.filter(color => color !== "#FFFFFF");
     if (chosenColors.length === 4 && savedColors.length === 4) {
-      let colorsAreEqualAndOnTheSamePlaces = updatedHistory.every((color, index) => color === savedPinColor[index]);
+      let colorsAreEqualAndOnTheSamePlaces = history.every((color, index) => color === savedPinColor[index]);
       if (colorsAreEqualAndOnTheSamePlaces) {
         document.getElementById("message-to-user").textContent = "Congratulations! Correct!";
       } else {
@@ -110,14 +104,21 @@ export default function Pin() {
       <Board
         history={history}
         onUserCircleClick={handleUserClickOnCircle}
-        onUserResetClick={handleUserClickOnResetButton}
-        onUserConfirmClick={handleUserClickOnConfirmButton}
       />
+      <div className="buttons">
+        <ResetButton handleUserClickOnResetButton={handleUserClickOnResetButton}/>
+        <ConfirmButton handleUserClickOnConfirmButton={handleUserClickOnConfirmButton}/>
+      </div>
     </div>
   );
 }
 
 
-function SaveButton({ history, }) {
+function ResetButton({ handleUserClickOnResetButton }) {
+  return <button className="reset" onClick={handleUserClickOnResetButton}>reset</button>
+}
 
+
+function ConfirmButton({ handleUserClickOnConfirmButton }) {
+  return <button className="confirm" onClick={handleUserClickOnConfirmButton}>confirm</button>
 }
