@@ -19,4 +19,4 @@ examples
 
 ## How it works:
 
-PINColor_in_action_arrows.jpg
+![PINColor_in_action](PINColor_in_action_arrows.jpg)
