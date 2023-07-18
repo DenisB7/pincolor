@@ -25,7 +25,7 @@ export default function Pin() {
         setHistory(updatedHistory);
     };
 
-    function handleUserClickOnSaveButton() {
+    let handleUserClickOnSaveButton = () => {
         let chosenColors = history.filter(color => color !== "#FFFFFF");
         if (chosenColors.length === 4 && savedPinColor.length === 0) {
             setSavedPinColor(history);
@@ -38,14 +38,14 @@ export default function Pin() {
         }
     };
 
-    function handleUserClickOnResetButton() {
+    let handleUserClickOnResetButton = () => {
         setHistory(Array(10).fill("#FFFFFF"));
         setSavedPinColor([]);
         document.getElementById("message-to-user").textContent = "Choose 4 colors by clicking on circles, remember it and SAVE!";
         document.getElementById("show-pin-message").textContent = "your pin you will see here";
     };
 
-    function handleUserClickOnConfirmButton() {
+    let handleUserClickOnConfirmButton = () => {
         let savedColors = savedPinColor.filter(color => color !== "#FFFFFF");
         let chosenColors = history.filter(color => color !== "#FFFFFF");
         if (chosenColors.length === 4 && savedColors.length === 4) {
