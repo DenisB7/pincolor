@@ -48,6 +48,11 @@ h1, h3 {
     text-align: center;
 }
 
+p#show-pin-message {
+    text-align: center;
+    font-weight: bold;
+}
+
 div.row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

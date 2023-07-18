@@ -10,7 +10,7 @@ function CircleButton({ className, style, onUserCircleClick }) {
 
 function Board({ history, onUserCircleClick, savedPinColor, confirmed }) {
   /*
-    Title: Board with circles and to handle user interaction with circles
+    Title: Board with circles and to handle user interaction with circles and colors in them
     About the code below:
     It creates Board with circles which are buttons, when user click on any circle, it change colors.
     It has limit, user can click only on 4 circles.
@@ -99,6 +99,8 @@ export default function Pin() {
       setSavedPinColor(history);
       setHistory(Array(10).fill("#FFFFFF"));
       document.getElementById("message-to-user").textContent = "Great! Please enter your PINColor code and click CONFIRM button!";
+      let pinToShow = chosenColors.join("");
+      document.getElementById("show-pin-message").textContent = `your pin: ${pinToShow}`;
     } else if (savedPinColor.length > 0 && confirmed === false) {
       document.getElementById("message-to-user").textContent = "You already SAVEd your pincolor! Try to recall it and click on CONFIRM or RESET everything!";
     }
@@ -108,6 +110,7 @@ export default function Pin() {
     setHistory(Array(10).fill("#FFFFFF"));
     setSavedPinColor([]);
     document.getElementById("message-to-user").textContent = "Choose 4 colors by clicking on circles, remember it and SAVE!";
+    document.getElementById("show-pin-message").textContent = "your pin you will see here";
   };
 
   function handleUserClickOnConfirmButton() {
@@ -140,6 +143,7 @@ export default function Pin() {
         <ResetButton handleUserClickOnResetButton={handleUserClickOnResetButton}/>
         <ConfirmButton handleUserClickOnConfirmButton={handleUserClickOnConfirmButton}/>
       </div>
+      <p id="show-pin-message">your pin you will see here</p>
     </div>
   );
 }
