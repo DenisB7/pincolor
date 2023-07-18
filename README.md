@@ -17,6 +17,6 @@ examples
 - third time you open PINcolor - red, green, brow
 - etc.
 
-## How it works:
+## How it works (simple example)
 
 ![PINColor_in_action](PINColor_in_action_arrows.jpg)
