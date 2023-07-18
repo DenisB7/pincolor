@@ -1,4 +1,4 @@
-# React project - PINcolor
+# My React project - PINColor
 ## Fun project about how else could work PIN code
 
 ### Features:
@@ -16,3 +16,7 @@ examples
 - second time you open PINcolor - brown, red, green
 - third time you open PINcolor - red, green, brow
 - etc.
+
+## How it works:
+
+PINColor_in_action_arrows.jpg
